@@ -11,6 +11,8 @@
 #include <cstdio>
 #include <fstream>
 #include <cmath>
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
 
@@ -108,11 +110,10 @@ bool Sudoku::solver(Sudoku ques, Sudoku &ans){
             
             if(!ques.isCorrect_single(firstZero)){
                 continue;
-                solver(ques,ans);
-                return true;
+                
             }
-         
-            
+            solver(ques,ans);
+            return true;
             
         }
         return false;
@@ -162,21 +163,22 @@ bool Sudoku::isCorrect_single(int firstZero ){
     int check_arr[9];
     int location;
     int i,j;
+    int k=0;
     int column = firstZero%9;
     int row = floor(firstZero/9);
     
     
     //check column
-    for(i=column;i<column+9*8;i+=9){
-            check_arr[i]=Map[i];
+    for(i=column,j=0;i<column+9*8,j<9;i+=9,j++){
+            check_arr[j]=Map[i];
         }
         check_result=checkUnity(check_arr);
         if(check_result==false)
             return false;
     
     //check row
-    for(i=row*9;i<row*9+8;i++){
-            check_arr[i]=Map[i];
+    for(i=row*9,j=0;i<row*9+8,j<9;i++,j++){
+            check_arr[j]=Map[i];
         }
         check_result=checkUnity(check_arr);
         if(check_result==false)
@@ -187,9 +189,11 @@ bool Sudoku::isCorrect_single(int firstZero ){
         for( j=0; j<3; ++j)
         {
             location = 27*(row/3) + 3*floor(column/3)+9*i + (j%3);
-            check_arr[j] = Map[location];
+            check_arr[k] = Map[location];
+            k++;
         }
     }
+    k=0;
         check_result = checkUnity(check_arr);
         if(check_result == false)
             return false;
@@ -200,7 +204,7 @@ bool Sudoku::isCorrect_single(int firstZero ){
 bool Sudoku::checkUnity(int arr[]){
     int arr_count[9]; //index
     int i;
-    for(int i=0; i<9; ++i)
+    for(i=0; i<9; i++)
          arr_count[i] = 0;
     for(i=0;i<9;i++)
         ++arr_count[arr[i]-1];
