@@ -64,7 +64,6 @@ void Sudoku::giveQuestion(){
     
 }
 
-
  /*readIn*/
 void Sudoku::readIn(){
     int i;
@@ -86,8 +85,13 @@ void Sudoku::solve(){
     
     //for(int i=0;i<SUDOKU_SIZE;i++)
       //  printf("%d",ques.Map[i]);
-    if(solver(ques,ans)==true)
-        cout<<"1";
+    if(solver(ques,ans)==true){
+        cout<<"1"<<endl;
+		for(int i=0; i<81; i++) {
+			cout << ans.Map[i] << " "; 
+			if(i%9==8)
+				cout << endl; }
+	}
     else if(solver(ques,ans)==false)
         cout<<"0";
 }
@@ -95,8 +99,8 @@ void Sudoku::solve(){
 bool Sudoku::solver(Sudoku ques, Sudoku &ans){
     int firstZero;
     
-    firstZero=getFirstZeroIndex();
-  
+    firstZero=ques.getFirstZeroIndex();
+//printf("%d\n",firstZero); 
     if(firstZero==-1){
         if(ques.isCorrect()){
             ans=ques;
@@ -108,13 +112,10 @@ bool Sudoku::solver(Sudoku ques, Sudoku &ans){
         for(int num=1; num<=9; ++num){
             ques.setElement(firstZero,num);
             
-            if(!ques.isCorrect_single(firstZero)){
-                continue;
-                
+            if(ques.isCorrect_single(firstZero)){
+                if(solver(ques,ans))
+                return true;
             }
-            solver(ques,ans);
-            return true;
-            
         }
         return false;
     }
@@ -169,7 +170,7 @@ bool Sudoku::isCorrect_single(int firstZero ){
     
     
     //check column
-    for(i=column,j=0;i<column+9*8,j<9;i+=9,j++){
+    for(i=column,j=0;i<=column+9*8,j<9;i+=9,j++){
             check_arr[j]=Map[i];
         }
         check_result=checkUnity(check_arr);
@@ -177,7 +178,7 @@ bool Sudoku::isCorrect_single(int firstZero ){
             return false;
     
     //check row
-    for(i=row*9,j=0;i<row*9+8,j<9;i++,j++){
+    for(i=row*9,j=0;i<=row*9+8,j<9;i++,j++){
             check_arr[j]=Map[i];
         }
         check_result=checkUnity(check_arr);
@@ -215,6 +216,7 @@ bool Sudoku::checkUnity(int arr[]){
     
     return true;
 }
+/*getFirstZeroIndex*/
 int Sudoku::getFirstZeroIndex(){ 
     int i;
     for(i=0;i<SUDOKU_SIZE;i++){
