@@ -85,7 +85,7 @@ void Sudoku::solve(){
    	ques2.setElement(i,Map[i]);
  }
     if(solver(ques,ans)==true){
-	if(solver2(ques2,ans2)==true&!sameAns(ans,ans2)){
+	if(solver2(ques2,ans2)==true&&(sameAns(ans,ans2)==false)){
 		cout<<"2";	
 	}
 	 else{  cout<<"1"<<endl;
