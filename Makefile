@@ -11,3 +11,4 @@ giveQuestion.o: giveQuestion.cpp
 
 clean:
 	rm  *o
+ 

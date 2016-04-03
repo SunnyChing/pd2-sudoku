@@ -24,7 +24,7 @@ class Sudoku{
         void readIn(); //input 81 digits / no output
         void solve(); //no input (use the one in `readIn()`) / output your answer
         bool solver(Sudoku ques, Sudoku &ans);
-	bool solver2(Sudoku ques, Sudoku &ans);
+	bool solver2(Sudoku ques2, Sudoku &ans2);
         bool isCorrect(); //check each row, column, and cell
         bool isCorrect_single(int firstZero); //check related row, column, and cell
         void setElement(int index,int value);
@@ -35,15 +35,17 @@ class Sudoku{
         void rotate(int n); //no input / no output
         void flip(int n) ;//no input / no output
         static const int SUDOKU_SIZE = 81;
+    bool sameAns(Sudoku ans,Sudoku ans2);
         void printout();
 bool checkUnity(int arr[]);
-    
+    int Map[Sudoku::SUDOKU_SIZE];
+
     
     private:
-    	bool sameAns(Sudoku ans,Sudoku ans2);
+    	//bool sameAns(Sudoku ans,Sudoku ans2);
         //bool checkUnity(int arr[]);
         int getFirstZeroIndex(); //find the first zero 
-        int Map[Sudoku::SUDOKU_SIZE];
+        //int Map[Sudoku::SUDOKU_SIZE];
     
 };
 

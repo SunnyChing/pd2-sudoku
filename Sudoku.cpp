@@ -84,18 +84,23 @@ void Sudoku::solve(){
         ques.setElement(i,Map[i]);
    	ques2.setElement(i,Map[i]);
  }
+    if(!ques.isCorrect()){
+        cout<<"0";
+        exit(1);
+    }
+   
     if(solver(ques,ans)==true){
-	if((solver2(ques2,ans2)==true)&&(!sameAns(ans,ans2))){
-		cout<<"2";	
-	}
-	 else{  cout<<"1"<<endl;
-		for(int i=0; i<81; i++) {
-			cout << ans.Map[i] << " "; 
-			if(i%9==8)cout << endl; 
-		}
-	}
-}
-    else if(solver(ques,ans)==false)
+        if((solver2(ques2,ans2)==true)&&(!sameAns(ans,ans2))){
+		cout<<"2";
+            exit(1);
+        }
+        else{  cout<<"1"<<endl;
+            for(int i=0; i<81; i++) {
+                cout << ans.Map[i] << " ";
+                if(i%9==8)cout << endl;
+                }
+     }
+    }else //(solver(ques,ans)==false)
         cout<<"0";
 }
 
@@ -125,24 +130,24 @@ bool Sudoku::solver(Sudoku ques, Sudoku &ans){
     
 
 }
-bool Sudoku::solver2(Sudoku ques, Sudoku &ans){
+bool Sudoku::solver2(Sudoku ques2, Sudoku &ans2){
     int firstZero;
     
-    firstZero=ques.getFirstZeroIndex();
+    firstZero=ques2.getFirstZeroIndex();
 
     if(firstZero==-1){
-        if(ques.isCorrect()){
-            ans=ques;
+        if(ques2.isCorrect()){
+            ans2=ques2;
             return true;
         }
         else return false;
     }
     else {
-        for(int num=9; num>=1; ++num){
-            ques.setElement(firstZero,num);
+        for(int num=9; num>=1; --num){
+            ques2.setElement(firstZero,num);
             
-            if(ques.isCorrect_single(firstZero)){
-                if(solver(ques,ans))
+            if(ques2.isCorrect_single(firstZero)){
+                if(solver2(ques2,ans2))
                 return true;
             }
         }
@@ -157,7 +162,7 @@ bool Sudoku::sameAns(Sudoku ans,Sudoku ans2){
 	if(ans.Map[i]==ans2.Map[i])
 	same++;
 	}
-	if(same==81)return true;
+	if(same>=80)return true;
 	else return false;
 }
 bool Sudoku::isCorrect(){
