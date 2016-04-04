@@ -44,7 +44,7 @@ bool checkUnity(int arr[]);
     private:
     	//bool sameAns(Sudoku ans,Sudoku ans2);
         //bool checkUnity(int arr[]);
-        int getFirstZeroIndex(); //find the first zero 
+        int getFirstZeroIndex(int firstZero); //find the first zero
         //int Map[Sudoku::SUDOKU_SIZE];
     
 };

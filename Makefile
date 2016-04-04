@@ -10,5 +10,5 @@ giveQuestion.o: giveQuestion.cpp
 	g++ -g -c giveQuestion.cpp
 
 clean:
-	rm  *o
+	rm  *o solve giveQuestion transform
  

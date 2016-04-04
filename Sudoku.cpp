@@ -86,13 +86,13 @@ void Sudoku::solve(){
  }
     if(!ques.isCorrect()){
         cout<<"0";
-        exit(1);
+        return;
     }
    
     if(solver(ques,ans)==true){
         if((solver2(ques2,ans2)==true)&&(!sameAns(ans,ans2))){
 		cout<<"2";
-            exit(1);
+            return;
         }
         else{  cout<<"1"<<endl;
             for(int i=0; i<81; i++) {
@@ -105,9 +105,9 @@ void Sudoku::solve(){
 }
 
 bool Sudoku::solver(Sudoku ques, Sudoku &ans){
-    int firstZero;
+    int firstZero=0;
     
-    firstZero=ques.getFirstZeroIndex();
+    firstZero=ques.getFirstZeroIndex(firstZero);
 
     if(firstZero==-1){
         if(ques.isCorrect()){
@@ -131,9 +131,9 @@ bool Sudoku::solver(Sudoku ques, Sudoku &ans){
 
 }
 bool Sudoku::solver2(Sudoku ques2, Sudoku &ans2){
-    int firstZero;
+    int firstZero=0;
     
-    firstZero=ques2.getFirstZeroIndex();
+    firstZero=ques2.getFirstZeroIndex(firstZero);
 
     if(firstZero==-1){
         if(ques2.isCorrect()){
@@ -260,9 +260,9 @@ bool Sudoku::checkUnity(int arr[]){
     return true;
 }
 /*getFirstZeroIndex*/
-int Sudoku::getFirstZeroIndex(){ 
+int Sudoku::getFirstZeroIndex(int firstZero){
     int i;
-    for(i=0;i<SUDOKU_SIZE;i++){
+    for(i=firstZero;i<SUDOKU_SIZE;i++){
         if(Map[i]==0)
             return i;
     }
