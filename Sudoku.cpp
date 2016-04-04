@@ -271,7 +271,6 @@ int Sudoku::getFirstZeroIndex(int firstZero){
 /*transform*/
 void Sudoku::transform(){
     
-    readIn();
     
     srand(time(NULL));//(rand() % (最大值-最小值+1) ) + 最小值
     changeNum(rand()%9+1, rand()%9+1); //Exchange number a and b in the board. (1 <= a, b <= 9)
